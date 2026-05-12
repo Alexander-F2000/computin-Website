@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ComPutIn - Votre Comptabilité Simplifiée</title>
+    <meta name="description" content="ComPutIn: L'application de comptabilité qui fait tout à votre place. Gérez vos transactions, stocks et finances facilement sur Android.">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <span class="logo-com">Com</span><span class="logo-putin">Putin</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#features">Fonctionnalités</a></li>
+                <li><a href="#screenshots">Aperçu</a></li>
+                <li><a href="#pricing">Tarifs</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <a href="#download" class="btn-nav">Télécharger</a>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-bg-animation">
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-text">
+                <span class="hero-badge">
+                    <i class="fas fa-star"></i> N°1 en Haïti
+                </span>
+                <h1>
+                    <span class="gradient-text">Arrêtez de compter sur papier.</span>
+                    <br>ComPutin fait tout à votre place.
+                </h1>
+                <p class="hero-subtitle">
+                    Transformez votre smartphone en <strong>expert-comptable personnel</strong>. 
+                    Transactions, rapports, stocks... Tout devient simple.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#download" class="btn btn-primary">
+                        <i class="fab fa-android"></i> Télécharger Gratuit
+                    </a>
+                    <a href="#features" class="btn btn-secondary">
+                        <i class="fas fa-play-circle"></i> Voir la démo
+                    </a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-number">10K+</span>
+                        <span class="stat-label">Utilisateurs</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">4.8★</span>
+                        <span class="stat-label">Note</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">100%</span>
+                        <span class="stat-label">Sécurisé</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="phone-mockup">
+                    <div class="phone-screen">
+                        <div class="app-header">
+                            <span>📝 Nouvelle Transaction</span>
+                        </div>
+                        <div class="app-form">
+                            <div class="form-group">
+                                <label>Montant (G)</label>
+                                <input type="text" value="500" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>Type</label>
+                                <div class="type-buttons">
+                                    <button class="type-btn active">Vente</button>
+                                    <button class="type-btn">Achat</button>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Produit</label>
+                                <input type="text" value="Riz" readonly>
+                            </div>
+                            <button class="submit-btn">✓ Enregistrer</button>
+                        </div>
+                        <div class="app-bottom-nav">
+                            <span>📝</span><span>📜</span><span>📊</span><span>📦</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="problem-section">
+        <div class="container">
+            <div class="problem-content">
+                <h2>Vous en avez marre de...</h2>
+                <div class="problems-grid">
+                    <div class="problem-card">
+                        <i class="fas fa-book-open"></i>
+                        <h3>Carnets illisibles</h3>
+                        <p>Trop de pages, écriture difficile à lire, recherches fastidieuses</p>
+                    </div>
+                    <div class="problem-card">
+                        <i class="fas fa-calculator"></i>
+                        <h3>Calculs manuels</h3>
+                        <p>Perte de temps pour additionner, soustraire, calculer les profits</p>
+                    </div>
+                    <div class="problem-card">
+                        <i class="fas fa-database"></i>
+                        <h3>Données perdues</h3>
+                        <p>Carnets égarés, téléphone cassé, catastrophe assurée</p>
+                    </div>
+                    <div class="problem-card">
+                        <i class="fas fa-question-circle"></i>
+                        <h3>Où va l'argent?</h3>
+                        <p>Impossible de savoir si vous gagnez ou perdez de l'argent</p>
+                    </div>
+                </div>
+                <div class="solution-reveal">
+                    <h2>La solution? <span class="highlight">ComPutIn</span></h2>
+                    <p>Tout ce dont vous avez besoin, dans votre poche.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Fonctionnalités</span>
+                <h2>Tout ce dont vous avez besoin</h2>
+                <p>Une seule app pour gérer l'ensemble de votre comptabilité</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-exchange-alt"></i>
+                    </div>
+                    <h3>Transactions</h3>
+                    <p>Enregistrez ventes, achats et charges en quelques clics. L'app calcule automatiquement vos profits.</p>
+                    <span class="feature-tag">Facile</span>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-history"></i>
+                    </div>
+                    <h3>Historique</h3>
+                    <p>Recherchez, filtrez et triez vos transactions. Retrouvez n'importe quelle opération instantanément.</p>
+                    <span class="feature-tag">Rapide</span>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-pie"></i>
+                    </div>
+                    <h3>Rapports</h3>
+                    <p>Visualisez vos finances avec des graphiques clairs. Comparaisons mensuelles et prévisions intelligentes.</p>
+                    <span class="feature-tag premium">Premium</span>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-boxes"></i>
+                    </div>
+                    <h3>Gestion Stock</h3>
+                    <p>Suivez vos produits en temps réel. Alertes automatiques quand vous devez réapprovisionner.</p>
+                    <span class="feature-tag">Intelligent</span>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Sécurité AES-256</h3>
+                    <p>Vos données sont chiffrées et sécurisées. Sauvegarde et restauration même après désinstallation.</p>
+                    <span class="feature-tag">Fiable</span>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                    </div>
+                    <h3>Backup Cloud</h3>
+                    <p>Syncronisez vos données sur tous vos appareils. Jamais plus perdre vos informations importantes.</p>
+                    <span class="feature-tag">Flexible</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Comment ça marche</span>
+                <h2>Simple comme 1, 2, 3</h2>
+            </div>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Téléchargez l'app</h3>
+                        <p>Installez ComPutIn sur votre téléphone Android depuis notre site ou le Play Store.</p>
+                    </div>
+                    <div class="step-icon">
+                        <i class="fas fa-download"></i>
+                    </div>
+                </div>
+                <div class="step-connector">
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Enregistrez vos transactions</h3>
+                        <p>Ajoutez vos ventes, achats et charges en moins de 10 secondes.</p>
+                    </div>
+                    <div class="step-icon">
+                        <i class="fas fa-edit"></i>
+                    </div>
+                </div>
+                <div class="step-connector">
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Analysez et prévoyez</h3>
+                        <p>Consultez vos rapports, graphiques et prévisions pour mieux gérer.</p>
+                    </div>
+                    <div class="step-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Screenshots Section -->
+    <section id="screenshots" class="screenshots-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Aperçu</span>
+                <h2>Découvrez l'interface</h2>
+                <p>Une expérience utilisateur fluide et intuitive</p>
+            </div>
+            <div class="screenshots-carousel">
+                <div class="screenshot-card">
+                    <div class="screenshot-phone">
+                        <div class="phone-inner">
+                            <div class="screen-content form-screen">
+                                <div class="screen-header">📝 Nouvelle Transaction</div>
+                                <div class="form-elements">
+                                    <div class="form-row">
+                                        <span>Montant</span>
+                                        <strong>500 G</strong>
+                                    </div>
+                                    <div class="form-row">
+                                        <span>Type</span>
+                                        <div class="badge-venta">Vente ✓</div>
+                                    </div>
+                                    <div class="form-row">
+                                        <span>Produit</span>
+                                        <strong>Riz Premium</strong>
+                                    </div>
+                                    <div class="submit-row">✓ Enregistrer</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="screenshot-label">Transactions rapides</p>
+                </div>
+                <div class="screenshot-card">
+                    <div class="screenshot-phone">
+                        <div class="phone-inner">
+                            <div class="screen-content history-screen">
+                                <div class="screen-header">📜 Historique</div>
+                                <div class="history-list">
+                                    <div class="history-item">
+                                        <span class="amount green">+500 G</span>
+                                        <span class="type">Vente - Riz</span>
+                                        <span class="date">12 Mai</span>
+                                    </div>
+                                    <div class="history-item">
+                                        <span class="amount red">-200 G</span>
+                                        <span class="type">Achat - Sucre</span>
+                                        <span class="date">11 Mai</span>
+                                    </div>
+                                    <div class="history-item">
+                                        <span class="amount green">+1,200 G</span>
+                                        <span class="type">Vente - Café</span>
+                                        <span class="date">10 Mai</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="screenshot-label">Historique complet</p>
+                </div>
+                <div class="screenshot-card">
+                    <div class="screenshot-phone">
+                        <div class="phone-inner">
+                            <div class="screen-content report-screen">
+                                <div class="screen-header">📊 Rapports</div>
+                                <div class="chart-placeholder">
+                                    <div class="pie-chart">
+                                        <div class="slice slice-1"></div>
+                                        <div class="slice slice-2"></div>
+                                        <div class="slice slice-3"></div>
+                                        <div class="center-text">
+                                            <span>Profit</span>
+                                            <strong>15K</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="report-legend">
+                                    <span><span class="dot green"></span> Ventes 65%</span>
+                                    <span><span class="dot red"></span> Achats 25%</span>
+                                    <span><span class="dot orange"></span> Charges 10%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="screenshot-label">Rapports & Analyses</p>
+                </div>
+                <div class="screenshot-card">
+                    <div class="screenshot-phone">
+                        <div class="phone-inner">
+                            <div class="screen-content stock-screen">
+                                <div class="screen-header">📦 Mon Stock</div>
+                                <div class="stock-alert">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                    Alerte de stock bas!
+                                </div>
+                                <div class="stock-list">
+                                    <div class="stock-item danger">
+                                        <span>Riz</span>
+                                        <span>5 kg ⚠️</span>
+                                    </div>
+                                    <div class="stock-item success">
+                                        <span>Haricots</span>
+                                        <span>50 kg ✓</span>
+                                    </div>
+                                    <div class="stock-item success">
+                                        <span>Sucre</span>
+                                        <span>30 kg ✓</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="screenshot-label">Gestion intelligente</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="pricing-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Tarifs</span>
+                <h2>Choisissez votre plan</h2>
+                <p>Commencez gratuitement, passez premium quand vous voulez</p>
+            </div>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>Essai Gratuit</h3>
+                        <div class="price">
+                            <span class="currency">G</span>
+                            <span class="amount">0</span>
+                        </div>
+                        <span class="duration">7 jours</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> Toutes les fonctionnalités</li>
+                        <li><i class="fas fa-check"></i> Transactions illimitées</li>
+                        <li><i class="fas fa-check"></i> Historique complet</li>
+                        <li><i class="fas fa-check"></i> Gestion de stock</li>
+                        <li><i class="fas fa-check"></i> Sauvegarde locale</li>
+                        <li class="disabled"><i class="fas fa-times"></i> Rapports avancés</li>
+                        <li class="disabled"><i class="fas fa-times"></i> Prévisions</li>
+                        <li class="disabled"><i class="fas fa-times"></i> Support prioritaire</li>
+                    </ul>
+                    <a href="#download" class="btn btn-outline">Commencer</a>
+                </div>
+                <div class="pricing-card featured">
+                    <div class="featured-badge">Populaire</div>
+                    <div class="pricing-header">
+                        <h3>Plan Mensuel</h3>
+                        <div class="price">
+                            <span class="currency">G</span>
+                            <span class="amount">500</span>
+                        </div>
+                        <span class="duration">/ mois</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> Tout de l'essai gratuit</li>
+                        <li><i class="fas fa-check"></i> Rapports avancés</li>
+                        <li><i class="fas fa-check"></i> Prévisions IA</li>
+                        <li><i class="fas fa-check"></i> Export PDF/CSV</li>
+                        <li><i class="fas fa-check"></i> Backup cloud</li>
+                        <li><i class="fas fa-check"></i> Support prioritaire</li>
+                        <li><i class="fas fa-check"></i> Mises à jour incluses</li>
+                        <li><i class="fas fa-check"></i> Annulation libre</li>
+                    </ul>
+                    <a href="#download" class="btn btn-primary">S'abonner</a>
+                </div>
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>Plan Annuel</h3>
+                        <div class="price">
+                            <span class="currency">G</span>
+                            <span class="amount">4000</span>
+                        </div>
+                        <span class="duration">/ an</span>
+                        <span class="savings">Économisez 33%</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> Tout du plan mensuel</li>
+                        <li><i class="fas fa-check"></i> 2 mois gratuits</li>
+                        <li><i class="fas fa-check"></i> Priorité absolue</li>
+                        <li><i class="fas fa-check"></i> Formation incluse</li>
+                        <li><i class="fas fa-check"></i> Fonctionnalités bêta</li>
+                        <li><i class="fas fa-check"></i> Suggestions優先</li>
+                        <li><i class="fas fa-check"></i> Accès anticipé</li>
+                        <li><i class="fas fa-check"></i> Sans engagement</li>
+                    </ul>
+                    <a href="#download" class="btn btn-outline">S'abonner</a>
+                </div>
+            </div>
+            <div class="payment-methods">
+                <p>Paiement sécurisé via</p>
+                <div class="payment-icons">
+                    <div class="payment-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                        <span>MonCash</span>
+                    </div>
+                    <div class="payment-icon">
+                        <i class="fas fa-lock"></i>
+                        <span>Sécurisé</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Témoignages</span>
+                <h2>Ce qu'en disent nos utilisateurs</h2>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <i class="fas fa-quote-left"></i>
+                        <p>"ComPutIn a changé ma façon de gérer mon magasin. Je sais enfin combien je gagne vraiment chaque mois!"</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">JM</div>
+                        <div class="author-info">
+                            <strong>Jean-Marc</strong>
+                            <span>Marchand - Port-au-Prince</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <i class="fas fa-quote-left"></i>
+                        <p>"L'alerte de stock bas m'a sauvé plusieurs fois. Plus jamais en rupture de marchandise!"</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">MS</div>
+                        <div class="author-info">
+                            <strong>Marie St-Clair</strong>
+                            <span>Épicière - Cap-Haïtien</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <i class="fas fa-quote-left"></i>
+                        <p>"Les rapports mensuels m'aident à planifier mes achats. Mes profits ont augmenté de 20%!"</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">RD</div>
+                        <div class="author-info">
+                            <strong>Robert Delice</strong>
+                            <span>Restaurateur - Jacmel</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Download Section -->
+    <section id="download" class="download-section">
+        <div class="container">
+            <div class="download-content">
+                <div class="download-text">
+                    <h2>Prêt à simplifier votre comptabilité?</h2>
+                    <p>Téléchargez ComPutIn maintenant et commencez votre période d'essai gratuite de 7 jours.</p>
+                    <div class="download-buttons">
+                        <a href="#" class="download-btn android">
+                            <i class="fab fa-google-play"></i>
+                            <div>
+                                <span class="download-label">Télécharger sur</span>
+                                <span class="download-store">Google Play</span>
+                            </div>
+                        </a>
+                        <a href="#" class="download-btn apk">
+                            <i class="fas fa-download"></i>
+                            <div>
+                                <span class="download-label">Fichier APK</span>
+                                <span class="download-store">Installation directe</span>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="download-info">
+                        <span><i class="fas fa-android"></i> Android 6.0+</span>
+                        <span><i class="fas fa-database"></i> 31 MB</span>
+                        <span><i class="fas fa-shield-alt"></i> Vérifié sécurisé</span>
+                    </div>
+                </div>
+                <div class="download-image">
+                    <div class="qr-code">
+                        <i class="fas fa-qrcode"></i>
+                        <span>Scannez pour télécharger</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Contact</span>
+                <h2>Une question? Contactez-nous</h2>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <i class="fab fa-whatsapp"></i>
+                    <h3>WhatsApp</h3>
+                    <p>+509 4XXX XXXX</p>
+                    <a href="#">Envoyer un message</a>
+                </div>
+                <div class="contact-card">
+                    <i class="fab fa-telegram-plane"></i>
+                    <h3>Telegram</h3>
+                    <p>@ComPutIn</p>
+                    <a href="#">Rejoindre</a>
+                </div>
+                <div class="contact-card">
+                    <i class="fas fa-envelope"></i>
+                    <h3>Email</h3>
+                    <p>support@computin-app.com</p>
+                    <a href="mailto:support@computin-app.com">Envoyer un email</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">FAQ</span>
+                <h2>Questions fréquentes</h2>
+            </div>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>ComPutIn fonctionne-t-il hors ligne?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Oui! ComPutIn fonctionne entièrement hors ligne. Vos données sont stockées localement et synchronisées quand vous avez une connexion internet.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Mes données sont-elles sécurisées?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Absolument. Nous utilisons un chiffrement AES-256 pour protéger vos données. Même si vous perdez votre téléphone, vos informations restent accessibles via la sauvegarde.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Comment fonctionne le paiement MonCash?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Pour passer premium, vous choisissez un plan et payez directement via MonCash. C'est simple, sécurisé et ne nécessite pas de carte bancaire.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Puis-je annuler mon abonnement?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Oui, vous pouvez annuler à tout moment. Vous gardez l'accès premium jusqu'à la fin de votre période payée.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="#" class="logo">
+                        <span class="logo-com">Com</span><span class="logo-putin">Putin</span>
+                    </a>
+                    <p>Votre comptabilité simplifiée, dans votre poche.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>Produit</h4>
+                    <ul>
+                        <li><a href="#features">Fonctionnalités</a></li>
+                        <li><a href="#pricing">Tarifs</a></li>
+                        <li><a href="#screenshots">Aperçu</a></li>
+                        <li><a href="#download">Télécharger</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Guide de démarrage</a></li>
+                        <li><a href="#">Tutoriels vidéo</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Légal</h4>
+                    <ul>
+                        <li><a href="#">Conditions d'utilisation</a></li>
+                        <li><a href="#">Politique de confidentialité</a></li>
+                        <li><a href="#">Politique de remboursement</a></li>
+                        <li><a href="#">CGU</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 ComPutIn. Tous droits réservés.</p>
+                <p>Fait avec <i class="fas fa-heart"></i> en Haïti</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
