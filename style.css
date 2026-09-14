@@ -14,13 +14,15 @@
     --border: rgba(255, 255, 255, 0.08);
     --border-strong: rgba(255, 255, 255, 0.14);
 
-    /* Accents ComPutIn */
-    --accent: #FF7A00;          /* orange */
+    /* Accents ComPutIn — couleurs réelles de l'app (Color.kt) */
+    --accent: #FF7A00;          /* OrangeDynamisme / Primary */
     --accent-light: #FFB56B;
-    --green: #43A047;           /* vert */
-    --green-light: #6BCB6F;
-    --blue: #2A6EF0;            /* bleu */
+    --green: #00B050;           /* Success */
+    --green-light: #4CAF50;     /* VertSucces */
+    --blue: #2563EB;            /* BleuFiabilite */
     --blue-light: #6B9BFF;
+    --violet: #7C3AED;          /* VioletProfondeur */
+    --red-alert: #DC2626;       /* RedAlert */
 
     /* Texte */
     --text: #F5F5F7;
@@ -473,7 +475,7 @@ button {
 .phone-screen {
     width: 100%;
     height: 100%;
-    background: linear-gradient(180deg, #1C1C26, #13131A);
+    background: linear-gradient(180deg, #1E1E24, #121212);
     border-radius: 32px;
     padding: 22px 16px 16px;
     display: flex;
@@ -482,7 +484,7 @@ button {
     overflow: hidden;
 }
 
-/* Simulateur d'app (fake) */
+/* Simulateur d'app (fidèle à l'UI Compose réelle) */
 .app-header {
     display: flex;
     align-items: center;
@@ -501,7 +503,7 @@ button {
     height: 8px;
     border-radius: 50%;
     background: var(--green);
-    box-shadow: 0 0 12px rgba(67, 160, 71, 0.8);
+    box-shadow: 0 0 12px rgba(0, 176, 80, 0.8);
 }
 
 .app-form {
@@ -520,6 +522,12 @@ button {
     gap: 5px;
 }
 
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
 .form-group label {
     font-size: 0.68rem;
     font-weight: 600;
@@ -529,8 +537,8 @@ button {
 }
 
 .form-group input {
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid var(--border);
+    background: #2A2A32;
+    border: 1px solid #3A3A44;
     border-radius: 8px;
     color: var(--text);
     font-family: var(--font-body);
@@ -546,8 +554,8 @@ button {
 }
 
 .type-btn {
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid var(--border);
+    background: #2A2A32;
+    border: 1px solid #3A3A44;
     border-radius: 8px;
     padding: 8px;
     font-size: 0.78rem;
@@ -557,9 +565,53 @@ button {
 }
 
 .type-btn.active {
-    background: rgba(67, 160, 71, 0.15);
+    background: rgba(0, 176, 80, 0.15);
     border-color: var(--green);
     color: var(--green-light);
+}
+
+.sale-type-row {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.sale-type {
+    background: #2A2A32;
+    border: 1px solid #3A3A44;
+    border-radius: 999px;
+    padding: 4px 10px;
+    font-size: 0.68rem;
+    font-weight: 500;
+    color: var(--text-dim);
+}
+
+.sale-type.active {
+    background: rgba(255, 122, 0, 0.15);
+    border-color: var(--accent);
+    color: var(--accent-light);
+}
+
+.total-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #1E2A3A;
+    border: 1px solid rgba(37, 99, 235, 0.35);
+    border-radius: 10px;
+    padding: 10px 12px;
+}
+
+.total-row span {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--blue-light);
+}
+
+.total-row strong {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    color: var(--text);
 }
 
 .submit-btn {
@@ -583,23 +635,33 @@ button {
     justify-content: space-around;
     margin-top: auto;
     padding-top: 10px;
-    border-top: 1px solid var(--border);
+    border-top: 1px solid #3A3A44;
 }
 
-.nav-icon {
-    width: 36px;
-    height: 36px;
+.nav-item {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    border-radius: 10px;
+    gap: 3px;
     color: var(--text-faint);
-    font-size: 0.85rem;
+    font-size: 0.8rem;
+    padding: 4px 8px;
+    border-radius: 10px;
+    min-width: 56px;
 }
 
-.nav-icon.active {
-    background: rgba(255, 122, 0, 0.15);
+.nav-item em {
+    font-style: normal;
+    font-size: 0.55rem;
+    font-weight: 500;
+}
+
+.nav-item.active {
     color: var(--accent);
+}
+
+.nav-item.active em {
+    color: var(--accent-light);
 }
 
 /* Cartes décoratives flottantes */
@@ -974,7 +1036,7 @@ button {
 .screen {
     width: 100%;
     height: 100%;
-    background: linear-gradient(180deg, #1C1C26, #13131A);
+    background: linear-gradient(180deg, #1E1E24, #121212);
     border-radius: 20px;
     padding: 14px;
     display: flex;
@@ -989,13 +1051,30 @@ button {
     color: var(--text);
 }
 
+.mock-field {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.66rem;
+    background: #2A2A32;
+    border: 1px solid #3A3A44;
+    border-radius: 8px;
+    padding: 6px 8px;
+    color: var(--text-faint);
+}
+
+.mock-field strong {
+    color: var(--text);
+    font-size: 0.72rem;
+}
+
 .mock-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-size: 0.66rem;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid var(--border);
+    background: #2A2A32;
+    border: 1px solid #3A3A44;
     border-radius: 8px;
     padding: 6px 8px;
     color: var(--text-dim);
@@ -1006,9 +1085,15 @@ button {
     font-size: 0.72rem;
 }
 
-.badge-venta {
+.mock-badge-ok {
+    align-self: flex-start;
+    background: rgba(0, 176, 80, 0.15);
+    border: 1px solid var(--green);
     color: var(--green-light);
+    border-radius: 999px;
+    font-size: 0.6rem;
     font-weight: 600;
+    padding: 3px 10px;
 }
 
 .mock-submit {
@@ -1023,6 +1108,15 @@ button {
     color: #fff;
 }
 
+.mock-search {
+    background: #2A2A32;
+    border: 1px solid #3A3A44;
+    border-radius: 8px;
+    padding: 6px 8px;
+    font-size: 0.6rem;
+    color: var(--text-faint);
+}
+
 .mock-item {
     display: flex;
     justify-content: space-between;
@@ -1034,7 +1128,18 @@ button {
 }
 
 .amt.green { color: var(--green-light); font-weight: 600; }
-.amt.red { color: #E5484D; font-weight: 600; }
+.amt.red { color: #DC2626; font-weight: 600; }
+
+.mock-suivi {
+    margin-top: auto;
+    font-size: 0.6rem;
+    color: var(--blue-light);
+    background: rgba(37, 99, 235, 0.12);
+    border: 1px solid rgba(37, 99, 235, 0.3);
+    border-radius: 8px;
+    padding: 6px 8px;
+    text-align: center;
+}
 
 .mock-pie {
     display: flex;
@@ -1047,7 +1152,7 @@ button {
     width: 86px;
     height: 86px;
     border-radius: 50%;
-    background: conic-gradient(var(--green) 0 60%, #E5484D 60% 85%, var(--blue) 85% 100%);
+    background: conic-gradient(var(--green) 0 68%, #DC2626 68% 100%);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1083,16 +1188,27 @@ button {
 
 .dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; }
 .dot.g { background: var(--green); }
-.dot.r { background: #E5484D; }
+.dot.r { background: #DC2626; }
+
+.mock-forecast {
+    margin-top: auto;
+    font-size: 0.6rem;
+    color: var(--violet);
+    background: rgba(124, 58, 237, 0.12);
+    border: 1px solid rgba(124, 58, 237, 0.3);
+    border-radius: 8px;
+    padding: 6px 8px;
+    text-align: center;
+}
 
 .mock-alert {
     display: flex;
     align-items: center;
     gap: 6px;
     font-size: 0.6rem;
-    color: #FFB56B;
-    background: rgba(255, 122, 0, 0.1);
-    border: 1px solid rgba(255, 122, 0, 0.25);
+    color: var(--red-alert);
+    background: rgba(220, 38, 38, 0.1);
+    border: 1px solid rgba(220, 38, 38, 0.3);
     border-radius: 8px;
     padding: 6px 8px;
 }
@@ -1108,8 +1224,19 @@ button {
 }
 
 .mock-stock-item span { color: var(--text); font-weight: 600; }
-.mock-stock-item.danger span { color: #E5484D; }
+.mock-stock-item.danger span { color: #DC2626; }
 .mock-stock-item.ok span { color: var(--green-light); }
+
+.mock-stats {
+    margin-top: auto;
+    font-size: 0.6rem;
+    color: var(--text-dim);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 6px 8px;
+    text-align: center;
+}
 
 .preview-label {
     font-family: var(--font-display);
