@@ -1,285 +1,226 @@
-/* =========================================
-   ComPutIn - JavaScript
-   ========================================= */
+/* ============================================================
+   ComPutIn — Site officiel (refonte v2)
+   Interactions : GSAP + ScrollTrigger, parallax multi-couches,
+   reveals au scroll, compteurs, accordéon FAQ, menu mobile.
+   Respecte `prefers-reduced-motion` et les appareils tactiles.
+   ============================================================ */
 
-document.addEventListener('DOMContentLoaded', function() {
-    
-    // =========================================
-    // Navbar scroll effect
-    // =========================================
-    const navbar = document.querySelector('.navbar');
-    
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            navbar.classList.add('scrolled');
+(function () {
+    'use strict';
+
+    /* ---------- Détection d'environnement ---------- */
+    var REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var IS_TOUCH = window.matchMedia('(pointer: coarse)').matches;
+    var HAS_GSAP = typeof window.gsap !== 'undefined';
+
+    /* Marqueur JS pour permettre les états initiaux CSS */
+    document.documentElement.classList.add('js');
+
+    /* ---------- Fallback sans GSAP : tout afficher ---------- */
+    if (!HAS_GSAP || REDUCED_MOTION) {
+        // Révéler tous les éléments animables immédiatement
+        document.querySelectorAll('[data-animate]').forEach(function (el) {
+            el.classList.add('is-visible');
+        });
+        // Sans GSAP : libérer les lignes masquées du hero (CSS-only)
+        if (!HAS_GSAP) {
+            document.querySelectorAll('.line-inner').forEach(function (el) {
+                el.style.transform = 'none';
+            });
         } else {
-            navbar.classList.remove('scrolled');
+            // GSAP présent mais reduced-motion : texte visible
+            gsap.set('.line-inner', { y: 0 });
         }
-    });
-    
-    // =========================================
-    // Smooth scroll for anchor links
-    // =========================================
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                const offsetTop = target.offsetTop - 80;
-                window.scrollTo({
-                    top: offsetTop,
-                    behavior: 'smooth'
-                });
-            }
-        });
-    });
-    
-    // =========================================
-    // FAQ Accordion
-    // =========================================
-    const faqItems = document.querySelectorAll('.faq-item');
-    
-    faqItems.forEach(item => {
-        const question = item.querySelector('.faq-question');
-        
-        question.addEventListener('click', () => {
-            // Close all other items
-            faqItems.forEach(otherItem => {
-                if (otherItem !== item) {
-                    otherItem.classList.remove('active');
-                }
-            });
-            
-            // Toggle current item
-            item.classList.toggle('active');
-        });
-    });
-    
-    // =========================================
-    // Phone mockup animation
-    // =========================================
-    const phoneMockup = document.querySelector('.phone-mockup');
-    
-    if (phoneMockup) {
-        // Type button toggle
-        const typeButtons = document.querySelectorAll('.type-btn');
-        
-        typeButtons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                typeButtons.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-            });
-        });
+        // Compter quand même les stats (sans animation fluide)
+        initCounters(false);
+        initUI(); // accordéon + menu mobile + header scroll
+        if (!HAS_GSAP) return;
     }
-    
-    // =========================================
-    // Intersection Observer for animations
-    // =========================================
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
-    
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('animate-in');
-            }
-        });
-    }, observerOptions);
-    
-    // Observe elements for animation
-    document.querySelectorAll('.feature-card, .problem-card, .pricing-card, .testimonial-card').forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(30px)';
-        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        observer.observe(el);
-    });
-    
-    // Add animation class styles
-    const style = document.createElement('style');
-    style.textContent = `
-        .animate-in {
-            opacity: 1 !important;
-            transform: translateY(0) !important;
-        }
-    `;
-    document.head.appendChild(style);
-    
-    // =========================================
-    // Counter animation for stats
-    // =========================================
-    const stats = document.querySelectorAll('.stat-number');
-    
-    const countUp = (el, target) => {
-        let current = 0;
-        const increment = target / 50;
-        const timer = setInterval(() => {
-            current += increment;
-            if (current >= target) {
-                el.textContent = target >= 1000 ? (target / 1000) + 'K+' : target + (el.textContent.includes('%') ? '%' : el.textContent.includes('★') ? '★' : '+');
-                clearInterval(timer);
-            } else {
-                el.textContent = Math.floor(current) + (el.textContent.includes('%') ? '%' : el.textContent.includes('★') ? '★' : '+');
-            }
-        }, 30);
-    };
-    
-    const statsObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                stats.forEach(stat => {
-                    const text = stat.textContent;
-                    const num = parseInt(text.replace(/[^0-9]/g, ''));
-                    if (!isNaN(num)) {
-                        stat.textContent = '0' + text.replace(/[0-9]/g, '');
-                        countUp(stat, num);
+
+    /* ============================================================
+       ANIMATIONS GSAP
+    ============================================================ */
+    if (HAS_GSAP && !REDUCED_MOTION) {
+        gsap.registerPlugin(ScrollTrigger);
+
+        /* --- Hero : révélation des lignes (masked line reveal) --- */
+        gsap.timeline({ defaults: { ease: 'power3.out' } })
+            .fromTo('.hero-badge', { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6 })
+            .fromTo('.line-inner',
+                { yPercent: 110 },
+                { yPercent: 0, duration: 0.9, stagger: 0.12 },
+                '-=0.3')
+            .fromTo('.hero-subtitle', { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7 }, '-=0.4')
+            .fromTo('.hero-buttons', { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7 }, '-=0.5');
+
+        /* --- Hero : entrée du mockup téléphone (elastic drop) --- */
+        gsap.fromTo('.hero-visual',
+            { y: 120, opacity: 0, rotateY: 18 },
+            {
+                y: 0, opacity: 1, rotateY: 0, duration: 1.4,
+                ease: 'elastic.out(1, 0.55)', delay: 0.35
+            });
+
+        /* --- Héro : parallax multi-couches au scroll --- */
+        if (IS_TOUCH === false || window.innerWidth >= 1024) {
+            var layers = document.querySelectorAll('.hero .layer[data-depth]');
+            layers.forEach(function (layer) {
+                var depth = parseFloat(layer.getAttribute('data-depth')) || 0;
+                if (depth === 4) return; // couche contenu : gestion fluide
+                gsap.to(layer, {
+                    yPercent: depth === 0 ? 0 : depth * 22,
+                    ease: 'none',
+                    scrollTrigger: {
+                        trigger: '.hero',
+                        start: 'top top',
+                        end: 'bottom top',
+                        scrub: true
                     }
                 });
-                statsObserver.disconnect();
+            });
+        }
+
+        /* --- Reveals au scroll (data-animate + data-delay) --- */
+        document.querySelectorAll('[data-animate]').forEach(function (el) {
+            // Les éléments du hero sont animés par la timeline d'entrée
+            if (el.closest('[data-scene="hero"]')) return;
+            var delay = parseFloat(el.getAttribute('data-delay')) || 0;
+            gsap.to(el, {
+                opacity: 1,
+                y: 0,
+                duration: 0.7,
+                ease: 'power3.out',
+                delay: delay,
+                scrollTrigger: {
+                    trigger: el,
+                    start: 'top 88%',
+                    once: true
+                }
+            });
+        });
+
+        /* --- Compteurs de stats --- */
+        initCounters(true);
+
+        /* --- Parallax léger des décorations CTA --- */
+        gsap.to('.glow-cta', {
+            yPercent: -12,
+            ease: 'none',
+            scrollTrigger: {
+                trigger: '.download',
+                start: 'top bottom',
+                end: 'bottom top',
+                scrub: true
             }
         });
-    }, { threshold: 0.5 });
-    
-    if (stats.length > 0) {
-        statsObserver.observe(stats[0].closest('.hero-stats'));
     }
-    
-    // =========================================
-    // Mobile menu toggle
-    // =========================================
-    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-    const navLinks = document.querySelector('.nav-links');
-    
-    if (mobileMenuBtn) {
-        mobileMenuBtn.addEventListener('click', () => {
-            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
-            navLinks.style.flexDirection = 'column';
-            navLinks.style.position = 'absolute';
-            navLinks.style.top = '70px';
-            navLinks.style.left = '0';
-            navLinks.style.right = '0';
-            navLinks.style.background = 'white';
-            navLinks.style.padding = '20px';
-            navLinks.style.boxShadow = '0 10px 30px rgba(0,0,0,0.1)';
-            navLinks.style.gap = '20px';
+
+    /* ============================================================
+       COMPTEURS
+    ============================================================ */
+    function initCounters(animate) {
+        var counters = document.querySelectorAll('.stat-number[data-count]');
+        if (!counters.length) return;
+
+        if (!animate) {
+            counters.forEach(function (el) {
+                el.textContent = formatNumber(el.getAttribute('data-count'));
+            });
+            return;
+        }
+
+        counters.forEach(function (el) {
+            var target = parseInt(el.getAttribute('data-count'), 10);
+            var obj = { val: 0 };
+
+            gsap.to(obj, {
+                val: target,
+                duration: 2,
+                ease: 'power2.out',
+                onUpdate: function () { el.textContent = formatNumber(Math.round(obj.val)); },
+                scrollTrigger: {
+                    trigger: el,
+                    start: 'top 90%',
+                    once: true
+                }
+            });
         });
     }
-    
-    // =========================================
-    // Pricing card hover effect
-    // =========================================
-    const pricingCards = document.querySelectorAll('.pricing-card');
-    
-    pricingCards.forEach(card => {
-        card.addEventListener('mouseenter', () => {
-            if (!card.classList.contains('featured')) {
-                card.style.transform = 'translateY(-10px) scale(1.02)';
-            }
-        });
-        
-        card.addEventListener('mouseleave', () => {
-            if (!card.classList.contains('featured')) {
-                card.style.transform = 'translateY(0) scale(1)';
-            }
-        });
-    });
-    
-    // =========================================
-    // Download button click tracking
-    // =========================================
-    const downloadButtons = document.querySelectorAll('.download-btn, .btn-nav, .pricing-card .btn');
-    
-    downloadButtons.forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            // Add ripple effect
-            const ripple = document.createElement('span');
-            ripple.style.cssText = `
-                position: absolute;
-                background: rgba(255,255,255,0.5);
-                border-radius: 50%;
-                width: 100px;
-                height: 100px;
-                left: ${e.offsetX - 50}px;
-                top: ${e.offsetY - 50}px;
-                transform: scale(0);
-                animation: ripple 0.6s linear;
-            `;
-            btn.style.position = 'relative';
-            btn.style.overflow = 'hidden';
-            btn.appendChild(ripple);
-            
-            setTimeout(() => ripple.remove(), 600);
-        });
-    });
-    
-    // Add ripple animation
-    const rippleStyle = document.createElement('style');
-    rippleStyle.textContent = `
-        @keyframes ripple {
-            to {
-                transform: scale(4);
-                opacity: 0;
+
+    function formatNumber(n) {
+        return n.toLocaleString('fr-FR');
+    }
+
+    /* ============================================================
+       UI : accordéon FAQ, menu mobile, header scroll
+    ============================================================ */
+    function initUI() {
+        /* --- Header : fond au scroll --- */
+        var header = document.getElementById('header');
+        function onScroll() {
+            if (window.scrollY > 24) {
+                header.classList.add('is-scrolled');
+            } else {
+                header.classList.remove('is-scrolled');
             }
         }
-    `;
-    document.head.appendChild(rippleStyle);
-    
-    // =========================================
-    // Contact card interaction
-    // =========================================
-    const contactCards = document.querySelectorAll('.contact-card');
-    
-    contactCards.forEach(card => {
-        card.addEventListener('mouseenter', () => {
-            card.style.transform = 'translateY(-8px)';
+        onScroll();
+        window.addEventListener('scroll', onScroll, { passive: true });
+
+        /* --- Menu mobile --- */
+        var menuBtn = document.getElementById('mobileMenuBtn');
+        var navLinks = document.getElementById('navLinks');
+
+        if (menuBtn && navLinks) {
+            menuBtn.addEventListener('click', function () {
+                var open = navLinks.classList.toggle('is-open');
+                menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+                menuBtn.innerHTML = open ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+            });
+
+            // Fermer le menu après clic sur un lien
+            navLinks.querySelectorAll('a').forEach(function (link) {
+                link.addEventListener('click', function () {
+                    navLinks.classList.remove('is-open');
+                    menuBtn.setAttribute('aria-expanded', 'false');
+                    menuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                });
+            });
+        }
+
+        /* --- Accordéon FAQ --- */
+        document.querySelectorAll('.faq-question').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                var item = btn.closest('.faq-item');
+                var answer = item.querySelector('.faq-answer');
+                var isOpen = item.classList.contains('is-open');
+
+                // Fermer les autres
+                document.querySelectorAll('.faq-item.is-open').forEach(function (other) {
+                    if (other === item) return;
+                    other.classList.remove('is-open');
+                    other.querySelector('.faq-answer').style.maxHeight = '0';
+                    other.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+                });
+
+                // Basculer le courant
+                item.classList.toggle('is-open', !isOpen);
+                btn.setAttribute('aria-expanded', String(!isOpen));
+                answer.style.maxHeight = !isOpen ? answer.scrollHeight + 'px' : '0';
+            });
         });
-        
-        card.addEventListener('mouseleave', () => {
-            card.style.transform = 'translateY(0)';
-        });
-    });
-    
-    // =========================================
-    // Screenshot carousel auto-scroll (if needed)
-    // =========================================
-    const screenshotsCarousel = document.querySelector('.screenshots-carousel');
-    
-    if (screenshotsCarousel && window.innerWidth > 1024) {
-        let scrollPosition = 0;
-        
-        // Optional: Add auto-scroll every 5 seconds
-        // setInterval(() => {
-        //     scrollPosition += 1;
-        //     if (scrollPosition >= screenshotsCarousel.children.length) {
-        //         scrollPosition = 0;
-        //     }
-        //     screenshotsCarousel.style.transform = `translateX(-${scrollPosition * 100}%)`;
-        // }, 5000);
+
+        /* --- Lisser l'ancre de téléchargement (lien APK réel) --- */
+        // Rien à faire : les liens internes utilisent scroll-behavior CSS.
     }
-    
-    // =========================================
-    // Lazy loading for images (if any)
-    // =========================================
-    const lazyImages = document.querySelectorAll('img[data-src]');
-    
-    const imageObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const img = entry.target;
-                img.src = img.dataset.src;
-                img.removeAttribute('data-src');
-                imageObserver.unobserve(img);
-            }
+
+    initUI();
+
+    /* Rafraîchir ScrollTrigger après chargement complet (polices, images) */
+    if (window.ScrollTrigger) {
+        window.addEventListener('load', function () {
+            ScrollTrigger.refresh();
         });
-    });
-    
-    lazyImages.forEach(img => imageObserver.observe(img));
-    
-    // =========================================
-    // Console message
-    // =========================================
-    console.log('%c ComPutIn ', 'background: linear-gradient(135deg, #2A6EF0, #5B2C90); color: white; font-size: 24px; padding: 10px 20px; border-radius: 10px;');
-    console.log('%c Votre comptabilité simplifiée 💰 ', 'color: #FF7A00; font-size: 14px;');
-    
-});
+    }
+
+})();
