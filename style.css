@@ -1252,7 +1252,7 @@ button {
 
 .pricing-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: var(--space-3);
     align-items: stretch;
 }
@@ -1312,6 +1312,71 @@ button {
     font-weight: 600;
     color: var(--text-dim);
     margin-bottom: var(--space-2);
+}
+
+.plan-subtitle {
+    font-family: var(--font-display);
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: var(--text-faint);
+    margin-bottom: var(--space-2);
+}
+
+.plan-desc {
+    font-size: 0.72rem;
+    color: var(--text-faint);
+    margin-bottom: var(--space-2);
+    line-height: 1.35;
+}
+
+.old-price {
+    font-size: 0.75rem;
+    color: var(--text-faint);
+    text-decoration: line-through;
+}
+
+.plan-badge-slot {
+    height: 18px;
+    margin-bottom: 2px;
+}
+
+.featured-badge.badge-green {
+    background: linear-gradient(135deg, var(--green), #2E8B3D);
+    color: #fff;
+}
+
+.trial-banner {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: rgba(76, 175, 80, 0.08);
+    border: 1px solid rgba(76, 175, 80, 0.3);
+    border-radius: var(--radius-lg);
+    padding: 14px 18px;
+    margin-bottom: var(--space-3);
+}
+
+.trial-icon {
+    font-size: 1.6rem;
+    line-height: 1;
+}
+
+.trial-banner strong {
+    display: block;
+    font-family: var(--font-display);
+    color: var(--green-light);
+}
+
+.trial-banner span:last-child {
+    font-size: 0.8rem;
+    color: var(--text-dim);
+}
+
+.reassurance {
+    margin-top: var(--space-3);
+    font-size: 0.78rem;
+    color: var(--text-dim);
+    text-align: center;
 }
 
 .price {
