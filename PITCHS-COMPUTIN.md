@@ -44,7 +44,7 @@ ComPutIn fait tout à votre place.
 ```
 
 **Sous-titre :**
-> Transformez votre smartphone en **expert-comptable personnel**. Transactions, rapports, stocks… tout devient simple, même sans connexion.
+> Transformez votre smartphone en **assistant comptable personnel**. Transactions, rapports, stocks… tout devient simple, même sans connexion.
 
 **CTA principal :** `Télécharger gratuit`
 **CTA secondaire :** `Découvrir`
@@ -65,14 +65,14 @@ ComPutIn fait tout à votre place.
 ## 5. Problèmes (Pain points)
 
 **Tag :** `Le problème`
-**Titre :** `Vous en avez marre de…`
+**Titre :** `Vous en avez marre…`
 
 | # | Titre | Description |
 |---|-------|-------------|
-| 1 | **Un carnet illisible** | Trop de pages, écriture difficile à lire, chercher une information prend du temps. |
-| 2 | **Calculer manuellement** | Du temps perdu à additionner, soustraire et calculer les profits. |
-| 3 | **Perdre vos données** | Carnets égarés ou téléphone cassé : vos chiffres disparaissent. |
-| 4 | **Ne pas savoir où va l'argent** | Vous ne savez jamais si vous gagnez ou perdez de l'argent. |
+| 1 | **D'un carnet illisible** | Trop de pages, écriture difficile à lire, chercher une information prend du temps. |
+| 2 | **De calculer manuellement** | Du temps perdu à additionner, soustraire et calculer les profits. |
+| 3 | **De perdre vos données** | Carnets égarés ou téléphone cassé : vos chiffres disparaissent. |
+| 4 | **De ne pas savoir où va l'argent** | Vous ne savez jamais si vous gagnez ou perdez de l'argent. |
 
 ---
 
