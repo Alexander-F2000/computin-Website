@@ -69,10 +69,10 @@ ComPutIn fait tout à votre place.
 
 | # | Titre | Description |
 |---|-------|-------------|
-| 1 | **Carnets illisibles** | Trop de pages, écriture difficile à lire, recherches fastidieuses. |
-| 2 | **Calculs manuels** | Perte de temps pour additionner, soustraire, calculer les profits. |
-| 3 | **Données perdues** | Carnets égarés, téléphone cassé : catastrophe assurée. |
-| 4 | **Où va l'argent ?** | Impossible de savoir si vous gagnez ou perdez de l'argent. |
+| 1 | **Un carnet illisible** | Trop de pages, écriture difficile à lire, chercher une information prend du temps. |
+| 2 | **Calculer manuellement** | Du temps perdu à additionner, soustraire et calculer les profits. |
+| 3 | **Perdre vos données** | Carnets égarés ou téléphone cassé : vos chiffres disparaissent. |
+| 4 | **Ne pas savoir où va l'argent** | Vous ne savez jamais si vous gagnez ou perdez de l'argent. |
 
 ---
 
