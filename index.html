@@ -16,7 +16,7 @@
         },
         "fileSize": "3205240",
         "softwareVersion": "3.24.0",
-        "downloadUrl": "https://github.com/Alexander-F2000/computin-Website/releases/latest",
+        "downloadUrl": "https://com-putin-backend.vercel.app/api/download",
         "screenshot": "https://alexander-f2000.github.io/computin-Website/assets/app-formulaire.jpg",
         "description": "Application de comptabilité, ventes et gestion de stock pour commerçants haïtiens. Chiffrement AES-GCM, export PDF/Excel, prévisions sur 30 jours."
     }
@@ -41,12 +41,13 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Font Awesome 6.5.1 — sous-ensemble local (icônes utilisées uniquement) -->
+    <link rel="stylesheet" href="assets/vendor/fontawesome/fa-subset.css">
     <link rel="stylesheet" href="style.css">
 
-    <!-- GSAP + ScrollTrigger (jsDelivr) -->
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
+    <!-- GSAP + ScrollTrigger — servis localement -->
+    <script src="assets/vendor/gsap.min.js" defer></script>
+    <script src="assets/vendor/ScrollTrigger.min.js" defer></script>
 </head>
 <body>
 
@@ -100,7 +101,7 @@
                 <div class="hero-visual">
                     <div class="phone-mockup float-orbit" aria-hidden="true">
                         <div class="phone-screen">
-                            <img class="phone-shot" src="assets/app-formulaire.jpg" alt="Écran Nouvelle Transaction de ComPutIn" width="640" height="1297">
+                            <img class="phone-shot" src="assets/app-formulaire.jpg" alt="Écran Nouvelle Transaction de ComPutIn" width="640" height="1297" decoding="async" fetchpriority="high">
                         </div>
                     </div>
                 </div>
@@ -474,11 +475,11 @@
                 <h2 class="download-title" data-animate="fade-up">Prêt à simplifier votre comptabilité&nbsp;?</h2>
                 <p class="download-sub" data-animate="fade-up">Téléchargez ComPutIn gratuitement — plan gratuit avec 50 transactions, sans carte bancaire.</p>
                 <div class="download-buttons" data-animate="fade-up">
-                    <!-- Lien réel : APK de la dernière version servie par le backend -->
-                    <a href="https://com-putin-backend.vercel.app/api/latestApk" class="btn btn-download btn-primary">
+                    <!-- Route stable : redirige vers la dernière APK servie par le backend -->
+                    <a href="https://com-putin-backend.vercel.app/api/download" class="btn btn-download btn-primary">
                         <i class="fas fa-download"></i>
-                        <span class="dl-label">Fichier APK</span>
-                        <span class="dl-sub">Installation directe</span>
+                        <span class="dl-label">Télécharger l'APK</span>
+                        <span class="dl-sub">Android · gratuit</span>
                     </a>
                     <a href="#contact" class="btn btn-download btn-ghost">
                         <i class="fas fa-google-play"></i>
