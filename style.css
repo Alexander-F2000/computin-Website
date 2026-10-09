@@ -1387,6 +1387,14 @@ button {
     line-height: 1;
 }
 
+.trial-icon i {
+    color: #4CAF50;
+}
+
+.icon-heart {
+    color: #DC2626;
+}
+
 .trial-banner strong {
     display: block;
     font-family: var(--font-display);

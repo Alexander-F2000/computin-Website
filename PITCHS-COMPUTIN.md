@@ -139,8 +139,8 @@ ComPutIn fait tout à votre place.
 **Tag :** `Tarifs`
 **Titre :** `Plans d'abonnement`
 **Sous-titre :** Conçu pour les professionnels haïtiens. Tarifs transparents. Sans frais cachés.
-**Bandeau essai :** 🎁 `Essai gratuit 7 jours — Testez toutes les fonctions, sans carte bancaire.`
-**Réassurance :** `🔒 Annulez à tout moment — vos données restent exportables.`
+**Bandeau essai :** icône cadeau (Font Awesome `fa-gift`) — `Essai gratuit 7 jours — Testez toutes les fonctions, sans carte bancaire.`
+**Réassurance :** icône cadenas (Font Awesome `fa-lock`) — `Annulez à tout moment — vos données restent exportables.`
 **Paiement :** `S'abonner avec MonCash`
 
 ### Grille officielle : 2 plans × 3 durées
