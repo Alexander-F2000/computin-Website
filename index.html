@@ -17,7 +17,7 @@
         "fileSize": "3205240",
         "softwareVersion": "3.24.0",
         "downloadUrl": "https://github.com/Alexander-F2000/computin-Website/releases/latest",
-        "screenshot": "https://computin-app.com/assets/app-preview.png",
+        "screenshot": "https://alexander-f2000.github.io/computin-Website/assets/app-formulaire.jpg",
         "description": "Application de comptabilité, ventes et gestion de stock pour commerçants haïtiens. Chiffrement AES-GCM, export PDF/Excel, prévisions sur 30 jours."
     }
     </script>
@@ -30,7 +30,12 @@
     <meta property="og:description" content="L'application de comptabilité des PME haïtiennes. Transactions, rapports, stock. Téléchargement gratuit.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://alexander-f2000.github.io/computin-Website/">
+    <meta property="og:image" content="https://alexander-f2000.github.io/computin-Website/assets/app-formulaire.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://alexander-f2000.github.io/computin-Website/assets/app-formulaire.jpg">
     <meta name="theme-color" content="#0D0D10">
+    <link rel="icon" type="image/png" href="assets/logo-computin.png">
+    <link rel="apple-touch-icon" href="assets/logo-computin.png">
 
     <!-- Typographie : Space Grotesk (identité) + Inter (corps) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -88,57 +93,14 @@
                 <div class="glow-blob glow-secondary"></div>
             </div>
 
-            <!-- DEPTH 2 : cartes décoratives flottantes -->
-            <div class="layer depth-2" data-depth="2" aria-hidden="true">
-                <div class="deco-card deco-card-left float-loop"><i class="fas fa-chart-line"></i><span>+15K G</span></div>
-                <div class="deco-card deco-card-right float-loop"><i class="fas fa-boxes"></i><span>Stock OK</span></div>
-            </div>
+            <!-- DEPTH 2 : (réservé) -->
 
             <!-- DEPTH 3 : mockup téléphone (héro) -->
             <div class="layer depth-3" data-depth="3">
                 <div class="hero-visual">
                     <div class="phone-mockup float-orbit" aria-hidden="true">
                         <div class="phone-screen">
-                            <div class="app-header">
-                                <span class="app-header-title">Nouvelle Transaction</span>
-                                <span class="app-header-dot"></span>
-                            </div>
-                            <div class="app-form">
-                                <div class="form-group">
-                                    <label>Article</label>
-                                    <input type="text" value="Riz Premium" readonly>
-                                </div>
-                                <div class="form-row">
-                                    <div class="form-group">
-                                        <label>Qté</label>
-                                        <input type="text" value="25" readonly>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Prix unitaire (G)</label>
-                                        <input type="text" value="120" readonly>
-                                    </div>
-                                </div>
-                                <div class="type-buttons">
-                                    <button class="type-btn">Achat</button>
-                                    <button class="type-btn active">Vente</button>
-                                </div>
-                                <div class="form-group">
-                                    <label>Type de vente</label>
-                                    <div class="sale-type-row">
-                                        <span class="sale-type active">Normale</span>
-                                        <span class="sale-type">En gros</span>
-                                        <span class="sale-type">Lot 🏷️</span>
-                                    </div>
-                                </div>
-                                <div class="total-row"><span>Total</span><strong>3 000 G</strong></div>
-                                <button class="submit-btn">Enregistrer Vente</button>
-                            </div>
-                            <div class="app-bottom-nav">
-                                <span class="nav-item active"><i class="fas fa-file-invoice"></i><em>Formulaire</em></span>
-                                <span class="nav-item"><i class="fas fa-history"></i><em>Historique</em></span>
-                                <span class="nav-item"><i class="fas fa-chart-pie"></i><em>Rapport</em></span>
-                                <span class="nav-item"><i class="fas fa-boxes-stacked"></i><em>Stock</em></span>
-                            </div>
+                            <img class="phone-shot" src="assets/app-formulaire.jpg" alt="Écran Nouvelle Transaction de ComPutIn" width="640" height="1297">
                         </div>
                     </div>
                 </div>
@@ -181,10 +143,6 @@
         ============================================ -->
         <section class="scene stats" data-scene="stats" id="stats">
             <div class="container stats-grid">
-                <div class="stat" data-animate="fade-up">
-                    <span class="stat-number" data-count="12500">0</span><span class="stat-suffix">+</span>
-                    <span class="stat-label">Transactions enregistrées</span>
-                </div>
                 <div class="stat" data-animate="fade-up" data-delay="0.1">
                     <span class="stat-number" data-count="50">0</span><span class="stat-suffix"> tx</span>
                     <span class="stat-label">Offertes dans le plan gratuit</span>
@@ -332,50 +290,25 @@
                 <div class="preview-grid">
                     <div class="preview-phone" data-animate="fade-up">
                         <div class="mini-phone">
-                            <div class="screen mock-form">
-                                <div class="screen-head">Nouvelle Transaction</div>
-                                <div class="mock-field"><span>Article</span><strong>Riz Premium</strong></div>
-                                <div class="mock-row"><span>Qté</span><strong>25</strong></div>
-                                <div class="mock-row"><span>Prix unitaire</span><strong>120 G</strong></div>
-                                <div class="mock-badge-ok">Vente ✓</div>
-                                <div class="mock-submit">Enregistrer Vente</div>
-                            </div>
+                            <img class="mini-shot" src="assets/app-formulaire.jpg" alt="Écran Nouvelle Transaction de ComPutIn" width="640" height="1297" loading="lazy">
                         </div>
                         <p class="preview-label">Saisie rapide des transactions</p>
                     </div>
                     <div class="preview-phone" data-animate="fade-up" data-delay="0.1">
                         <div class="mini-phone">
-                            <div class="screen mock-history">
-                                <div class="screen-head">Historique</div>
-                                <div class="mock-search">Rechercher article, ID...</div>
-                                <div class="mock-item"><span class="amt green">+3 000 G</span><span>Vente — Riz</span></div>
-                                <div class="mock-item"><span class="amt red">−2 500 G</span><span>Achat — Sucre</span></div>
-                                <div class="mock-item"><span class="amt green">+720 G</span><span>Vente — Café</span></div>
-                                <div class="mock-suivi">📊 Ventes · Achats · Bénéfice</div>
-                            </div>
+                            <img class="mini-shot" src="assets/app-historique.jpg" alt="Écran Historique des transactions de ComPutIn" width="640" height="960" loading="lazy">
                         </div>
                         <p class="preview-label">Historique &amp; suivi</p>
                     </div>
                     <div class="preview-phone" data-animate="fade-up" data-delay="0.2">
                         <div class="mini-phone">
-                            <div class="screen mock-report">
-                                <div class="screen-head">Rapports</div>
-                                <div class="mock-pie"><div class="pie-center"><span>Bénéfice</span><strong>85K</strong></div></div>
-                                <div class="mock-legend"><span class="dot g"></span> Ventes 68% <span class="dot r"></span> Achats 32%</div>
-                                <div class="mock-forecast">🔮 Ventes mensuelles estimées</div>
-                            </div>
+                            <img class="mini-shot" src="assets/app-rapports.jpg" alt="Écran Rapports et prévisions de ComPutIn" width="640" height="853" loading="lazy">
                         </div>
                         <p class="preview-label">Rapports &amp; prévisions 30 j</p>
                     </div>
                     <div class="preview-phone" data-animate="fade-up" data-delay="0.3">
                         <div class="mini-phone">
-                            <div class="screen mock-stock">
-                                <div class="screen-head">Stock</div>
-                                <div class="mock-alert"><i class="fas fa-exclamation-triangle"></i> 2 produit(s) en rupture ou bas</div>
-                                <div class="mock-stock-item danger">Riz <span>5 kg</span></div>
-                                <div class="mock-stock-item ok">Haricots <span>50 kg</span></div>
-                                <div class="mock-stats">📈 Total investi · ✅ Bénéfice</div>
-                            </div>
+                            <img class="mini-shot" src="assets/app-stock.jpg" alt="Écran Gestion de stock et alertes de ComPutIn" width="640" height="858" loading="lazy">
                         </div>
                         <p class="preview-label">Stock &amp; alertes</p>
                     </div>

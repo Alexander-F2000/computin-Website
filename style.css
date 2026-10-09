@@ -484,6 +484,16 @@ button {
     overflow: hidden;
 }
 
+/* Capture réelle de l'app dans le cadre du téléphone */
+.phone-shot {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    border-radius: 24px;
+    display: block;
+}
+
 /* Simulateur d'app (fidèle à l'UI Compose réelle) */
 .app-header {
     display: flex;
@@ -739,7 +749,7 @@ button {
 
 .stats-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: var(--space-4);
     text-align: center;
 }
@@ -1018,17 +1028,20 @@ button {
 
 .mini-phone {
     width: 100%;
-    max-width: 210px;
-    aspect-ratio: 0.5;
-    background: linear-gradient(165deg, #26262F, #17171E);
+    max-width: 230px;
+}
+
+.mini-shot {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 22px;
     border: 1px solid var(--border-strong);
-    border-radius: 28px;
-    padding: 10px;
     box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
     transition: transform 0.35s ease, box-shadow 0.35s ease;
 }
 
-.preview-phone:hover .mini-phone {
+.preview-phone:hover .mini-shot {
     transform: translateY(-10px);
     box-shadow: 0 34px 80px rgba(0, 0, 0, 0.55);
 }
@@ -1945,22 +1958,36 @@ html.js [data-animate].is-visible {
         display: none;
     }
 
+    /* Hero empilé : téléphone en haut, texte en dessous (affichage complet) */
+    .scene.hero {
+        min-height: auto;
+        align-items: center;
+        padding-block: calc(var(--header-h) + 24px) 32px;
+        gap: 26px;
+    }
+
+    .layer.depth-3,
+    .layer.depth-4 {
+        position: static;
+        min-height: auto;
+    }
+
     .hero-visual {
-        position: relative;
+        position: static;
         top: auto;
         right: auto;
         transform: none;
-        margin-inline: auto;
-        order: -1;
-        margin-bottom: var(--space-3);
+        margin: 0;
+        perspective: none;
     }
 
     .phone-mockup {
-        width: 230px;
-        height: 460px;
+        width: 250px;
+        height: 520px;
     }
 
     .hero-content {
+        padding-block: 0;
         align-items: center;
         text-align: center;
     }
