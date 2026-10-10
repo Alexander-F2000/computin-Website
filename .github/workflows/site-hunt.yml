@@ -1,0 +1,32 @@
+name: site-hunt
+
+# Chasse aux bugs du site (esprit bug-hunt de l'app) — barrière automatique (G2).
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+  schedule:
+    - cron: "0 7 * * *" # chaque jour 07:00 UTC : vérifie la version EN LIGNE
+  workflow_dispatch:
+
+jobs:
+  hunt:
+    name: site-hunt (statique)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Chasse statique
+        run: bash site-hunt.sh
+
+  release:
+    name: verify-release (version en ligne)
+    # Ne s'exécute que sur le planning / manuel : prouve la version publiée.
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Barrière de release (en ligne)
+        run: bash verify-release.sh

@@ -21,18 +21,65 @@
         "description": "Application de comptabilité, ventes et gestion de stock pour commerçants haïtiens. Chiffrement AES-GCM, export PDF/Excel, prévisions sur 30 jours."
     }
     </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "ComPutIn fonctionne-t-il hors ligne ?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Oui ! ComPutIn fonctionne entièrement hors ligne. Vos données sont stockées localement et synchronisées quand vous avez une connexion internet." }
+            },
+            {
+                "@type": "Question",
+                "name": "Mes données sont-elles sécurisées ?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Absolument. Vos données sont chiffrées avec AES-GCM (AndroidKeyStore) avant la sauvegarde locale. Une synchronisation cloud optionnelle est disponible : elle est chiffrée et ne s'active que si vous la déclenchez." }
+            },
+            {
+                "@type": "Question",
+                "name": "Le plan gratuit est-il vraiment gratuit ?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Oui — gratuit pour toujours, sans carte bancaire. Il inclut 50 transactions et 70 articles en stock. Passez premium quand vous voulez pour débloquer l'illimité et les rapports avancés." }
+            },
+            {
+                "@type": "Question",
+                "name": "Comment fonctionne le paiement MonCash ?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Pour passer premium, choisissez un plan et payez directement via MonCash. C'est simple, sécurisé et ne nécessite pas de carte bancaire." }
+            },
+            {
+                "@type": "Question",
+                "name": "Puis-je annuler mon abonnement ?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Oui, vous pouvez annuler à tout moment. Vous gardez l'accès premium jusqu'à la fin de votre période payée." }
+            },
+            {
+                "@type": "Question",
+                "name": "Je ne suis pas à l'aise avec les applications, est-ce compliqué ?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Non. ComPutIn a été pensé pour être utilisé en quelques minutes, sans formation. Vous remplissez Article, Quantité et Prix, puis vous appuyez sur « Enregistrer ». Le reste — bénéfice, stock, rapports — se calcule automatiquement." }
+            },
+            {
+                "@type": "Question",
+                "name": "Et si je perds ou casse mon téléphone ?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Vos données sont d'abord chiffrées (AES-GCM) et stockées sur l'appareil. Pour ne rien perdre, activez la synchronisation cloud optionnelle : vos transactions sont sauvegardées et restaurables sur un nouvel appareil." }
+            }
+        ]
+    }
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ComPutIn — La comptabilité qui se calcule toute seule</title>
-    <meta name="description" content="ComPutIn : l'application de comptabilité pour les PME et commerçants haïtiens. Transactions, rapports, gestion de stock et paiement MonCash. Téléchargez gratuitement sur Android.">
+    <link rel="canonical" href="https://alexander-f2000.github.io/computin-Website/">
+    <meta name="description" content="ComPutIn : l'app de comptabilité des PME et commerçants haïtiens. Ventes, rapports, stock, MonCash. Téléchargez gratuitement sur Android.">
     <meta name="keywords" content="ComPutIn, comptabilité, Haïti, PME, MonCash, gestion stock, rapports, Android">
     <meta property="og:title" content="ComPutIn — La comptabilité qui se calcule toute seule">
     <meta property="og:description" content="L'application de comptabilité des PME haïtiennes. Transactions, rapports, stock. Téléchargement gratuit.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://alexander-f2000.github.io/computin-Website/">
-    <meta property="og:image" content="https://alexander-f2000.github.io/computin-Website/assets/app-formulaire.jpg">
+    <meta property="og:image" content="https://alexander-f2000.github.io/computin-Website/assets/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="ComPutIn — la comptabilité qui se calcule toute seule">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content="https://alexander-f2000.github.io/computin-Website/assets/app-formulaire.jpg">
+    <meta name="twitter:image" content="https://alexander-f2000.github.io/computin-Website/assets/og-image.png">
     <meta name="theme-color" content="#0D0D10">
     <link rel="icon" type="image/png" href="assets/logo-computin.png">
     <link rel="apple-touch-icon" href="assets/logo-computin.png">
@@ -484,9 +531,8 @@
                         <span class="dl-sub">Android · gratuit</span>
                     </a>
                     <a href="#contact" class="btn btn-download btn-ghost">
-                        <i class="fas fa-google-play"></i>
+                        <i class="fab fa-google-play"></i>
                         <span class="dl-label">Google Play</span>
-                        <span class="dl-sub">Bientôt disponible</span>
                     </a>
                 </div>
                 <div class="download-info" data-animate="fade-up">
@@ -590,7 +636,7 @@
                     </div>
                 </div>
                 <div class="footer-col">
-                    <h4>Produit</h4>
+                    <h3>Produit</h3>
                     <ul>
                         <li><a href="#solutions">Solutions</a></li>
                         <li><a href="#pricing">Tarifs</a></li>
@@ -599,7 +645,7 @@
                     </ul>
                 </div>
                 <div class="footer-col">
-                    <h4>Support</h4>
+                    <h3>Support</h3>
                     <ul>
                         <li><a href="#contact">Contact</a></li>
                         <li><a href="#faq">FAQ</a></li>
@@ -608,7 +654,7 @@
                     </ul>
                 </div>
                 <div class="footer-col">
-                    <h4>Légal</h4>
+                    <h3>Légal</h3>
                     <ul>
                         <li><a href="#">Conditions d'utilisation</a></li>
                         <li><a href="#">Politique de confidentialité</a></li>
