@@ -190,6 +190,25 @@ function ldTypes(b) {
   }
 }
 
+// ============================================ S9c — @font-face resolvable
+{
+  if (existsSync(FA_CSS)) {
+    const css = readFileSync(FA_CSS, 'utf-8')
+    const faDir = dirname(FA_CSS)
+    const re = /url\(\s*["']?([^"')]+)["']?\s*\)/gi
+    let m
+    while ((m = re.exec(css))) {
+      const u = m[1].trim()
+      if (u.startsWith('data:') || /^https?:/i.test(u)) continue
+      const clean = u.split(/[?#]/)[0]
+      const p = resolve(faDir, clean)
+      if (!existsSync(p)) {
+        add('S9c', 'blocker', 'Police @font-face introuvable', `${u} référencé dans fa-subset.css mais absent (${clean}) — la police ne charge pas → icônes en « tofu »`, null)
+      }
+    }
+  }
+}
+
 // ================================================= S10 — emojis
 {
   const m = allContent.match(EMOJI_RE)

@@ -94,7 +94,7 @@
 .fa-exclamation-triangle:before,.fa-triangle-exclamation:before,.fa-warning:before{content:"\f071"}
 .fa-sr-only,.fa-sr-only-focusable:not(:focus),.sr-only,.sr-only-focusable:not(:focus){position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border-width:0}
 :host,:root{--fa-style-family-brands:"Font Awesome 6 Brands";--fa-font-brands:normal 400 1em/1 "Font Awesome 6 Brands"}
-@font-face{font-family:"Font Awesome 6 Brands";font-style:normal;font-weight:400;font-display:block;src:url(../webfonts/fa-brands-400.woff2) format("woff2"),url(../webfonts/fa-brands-400.ttf) format("truetype")}
+@font-face{font-family:"Font Awesome 6 Brands";font-style:normal;font-weight:400;font-display:block;src:url(webfonts/fa-brands-400.woff2) format("woff2")}
 .fa-brands,.fab{font-weight:400}
 .fa-facebook-f:before{content:"\f39e"}
 .fa-x-twitter:before{content:"\e61b"}
@@ -107,5 +107,5 @@
 :host,:root{--fa-font-regular:normal 400 1em/1 "Font Awesome 6 Free"}
 .fa-regular,.far{font-weight:400}
 :host,:root{--fa-style-family-classic:"Font Awesome 6 Free";--fa-font-solid:normal 900 1em/1 "Font Awesome 6 Free"}
-@font-face{font-family:"Font Awesome 6 Free";font-style:normal;font-weight:900;font-display:block;src:url(../webfonts/fa-solid-900.woff2) format("woff2"),url(../webfonts/fa-solid-900.ttf) format("truetype")}
+@font-face{font-family:"Font Awesome 6 Free";font-style:normal;font-weight:900;font-display:block;src:url(webfonts/fa-solid-900.woff2) format("woff2")}
 .fa-solid,.fas{font-weight:900}

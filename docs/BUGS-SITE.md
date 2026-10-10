@@ -92,3 +92,21 @@
 - site-hunt après correctif : `0 blocker · 0 major · 0 minor · 1 nit (S17 github.io)` → ✅ OK.
 
 **Commit lié** : à commiter avec le fix (index.html).
+
+## SITE-6 — Police Font Awesome non chargée → TOUTES les icônes en « tofu » (rectangle) — 2026-10-10
+
+**Symptôme** : « tous les endroits où il devrait y avoir une icône affichent un petit rectangle » (glyphes de substitution .notdef = « tofu »).
+
+**Cause racine** : dans `assets/vendor/fontawesome/fa-subset.css`, les blocs `@font-face` pointaient sur `url(../webfonts/…)`. Le CSS vit dans `assets/vendor/fontawesome/`, donc `../webfonts/` remonte à `assets/vendor/webfonts/` — **chemin inexistant (HTTP 404)**. Le navigateur ne charge jamais la police → repli sur une police système sans glyphes FA → tofu sur **toutes** les icônes. (Le chemin `../webfonts/` est correct dans l'archive officielle où le CSS est dans `css/`, mais pas ici.)
+
+**Pourquoi non détecté** : `site-hunt` vérifiait que l'icône est *présente dans le CSS* (S9) et le *préfixe* (S9b), mais **jamais que le fichier de police référencé existe réellement** (le CSS était servi en 200, les .woff2 aussi — mais à une **mauvaise URL**).
+
+**Correctif** :
+- `fa-subset.css` : `url(../webfonts/…)` → `url(webfonts/…)` (2 polices) + suppression des fallbacks `.ttf` non livrés (404).
+- `tools/fa_subset.py` : réécrit désormais le chemin et retire les `.ttf` à la génération (empêche la récurrence).
+
+**Garde-fous (défense en profondeur)** :
+- **S9c (site-hunt, blocker)** : chaque `url()` des `@font-face` doit résoudre vers un fichier local existant, sinon la police ne chargera pas → tofu. Test négatif validé (police masquée ⇒ `⛔ S9c blocker`).
+- **verify-release.sh** : récupère le `fa-subset.css` EN LIGNE et vérifie que **chaque police `@font-face` répond en HTTP 200** en ligne (G1 : preuve live, pas seulement locale).
+
+**Preuve** : en ligne, `assets/vendor/webfonts/fa-solid-900.woff2` = **404** (avant) vs `assets/vendor/fontawesome/webfonts/fa-solid-900.woff2` = **200** ; après correctif, toutes les polices répondent 200 et `site-hunt` = `0 blocker`.

@@ -83,6 +83,24 @@ check_http "style.css"                         "$SITE_URL/style.css"
 check_absent_html "Aucun CDN jsdelivr"        'cdn.jsdelivr.net'
 check_absent_html "Aucun CDN cdnjs"           'cdnjs.cloudflare.com'
 
+# ---- Polices Font Awesome réellement joignables (sinon TOUTES les icônes = « tofu ») ----
+FA_CSS_URL="$SITE_URL/assets/vendor/fontawesome/fa-subset.css"
+FA_CSS_LIVE="$TMP/fa-subset.css"
+if [ "$(curl -s -o "$FA_CSS_LIVE" -w '%{http_code}' "$FA_CSS_URL")" = "200" ]; then
+  echo "  -- polices @font-face --"
+  fontok=1
+  while IFS= read -r u; do
+    [ -z "$u" ] && continue
+    abs="${FA_CSS_URL%/*}/$u"
+    c="$(http_code "$abs")"
+    if [ "$c" = "200" ]; then echo "  ✅ police : $u"
+    else echo "  ❌ police introuvable : $abs (HTTP $c) → toutes les icônes en « tofu »"; fail=1; fontok=0; fi
+  done < <(grep -oE 'url\([^)]+\)' "$FA_CSS_LIVE" | sed -E 's/^url\(//; s/\)$//' | tr -d '"'"'" | grep -vE '^(https?:|data:)' | sort -u)
+  [ "$fontok" = 1 ] && echo "  ✅ toutes les polices @font-face joignables"
+else
+  echo "  ❌ fa-subset.css non récupérable → polices invérifiables"; fail=1
+fi
+
 # ---- Backend : la page ne sert à rien si l'APK ne se télécharge pas ----
 echo "  -- backend --"
 dl="$(curl -sL -o /dev/null -w '%{http_code}|%{content_type}' "$BACKEND_URL/api/download" || echo '000|')"

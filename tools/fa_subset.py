@@ -77,6 +77,10 @@ for sel, body in parse(css):
         kept.append(f'{sel}{{{body}}}')
 
 out = header + '\n' + '\n'.join(kept) + '\n'
+# chemins de police : le CSS vit dans fontawesome/, les polices dans fontawesome/webfonts/
+out = out.replace('../webfonts/', 'webfonts/')
+# retire les fallbacks .ttf non livres (404 garanti)
+out = re.sub(r',url\(webfonts/[^)]+\.ttf\) format\("truetype"\)', '', out)
 open(OUT, 'w', encoding='utf-8').write(out)
 
 # ---- validation : chaque icone utilisee doit avoir une regle :before ----
