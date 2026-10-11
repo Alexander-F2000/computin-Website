@@ -143,6 +143,140 @@ function ldTypes(b) {
   return Array.isArray(t) ? t : t ? [t] : []
 }
 
+// ============================================================ S1 — JSON-LD
+{
+  const re = /<script[^>]*type\s*=\s*"application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/gi
+  const bodies = []
+  let m
+  while ((m = re.exec(html))) bodies.push(m[1])
+  if (bodies.length === 0) {
+    add('S1', 'blocker', 'JSON-LD absent', 'Aucun <script type="application/ld+json"> → pas de rich results', null)
+  }
+  for (const body of bodies) {
+    let obj
+    try {
+      obj = JSON.parse(body)
+    } catch (e) {
+      add('S1', 'blocker', 'JSON-LD invalide', `Bloc JSON-LD illisible : ${e.message}`, firstLine(html, 'application/ld+json'))
+      continue
+    }
+    const arr = Array.isArray(obj) ? obj : [obj]
+    for (const x of arr) {
+      if (!x || !x['@type']) add('S1', 'major', 'JSON-LD sans @type', 'Bloc JSON-LD sans "@type" (non exploitable)', firstLine(html, 'application/ld+json'))
+    }
+  }
+}
+
+// ============================================================ S2 — meta description
+{
+  const d = metaContent('description')
+  if (!d) {
+    add('S2', 'major', 'Meta description absente', 'Ajouter <meta name="description" content="…">', null)
+  } else if (d.length > 160) {
+    add('S2', 'major', 'Meta description trop longue', `${d.length} caractères (max 160)`, firstLine(html, 'name="description"'))
+  } else if (d.length < 50) {
+    add('S2', 'minor', 'Meta description trop courte', `${d.length} caractères (viser 50–160)`, firstLine(html, 'name="description"'))
+  }
+}
+
+// ============================================================ S3 — <title>
+{
+  const t = (head.match(/<title>([\s\S]*?)<\/title>/i) || [])[1]
+  if (!t) {
+    add('S3', 'blocker', 'Balise <title> absente', 'Ajouter <title>…</title>', null)
+  } else {
+    const len = t.trim().length
+    if (len < 30 || len > 65) add('S3', 'minor', 'Titre hors plage', `${len} caractères (viser 30–65) : « ${t.trim()} »`, firstLine(html, '<title>'))
+  }
+}
+
+// ============================================================ S4 — <h1> unique
+{
+  const h1 = allTags(/<h1[\s>]/gi)
+  if (h1.length === 0) add('S4', 'blocker', 'Aucun <h1>', 'Ajouter un <h1> unique', null)
+  else if (h1.length > 1) add('S4', 'blocker', 'Plusieurs <h1>', `${h1.length} balises <h1> (une seule attendue)`, firstLine(html, '<h1'))
+}
+
+// ============================================================ S5 — hiérarchie des titres
+{
+  const re = /<h([1-6])[\s>]/gi
+  let m
+  let prev = 0
+  while ((m = re.exec(html))) {
+    const lvl = Number(m[1])
+    if (prev && lvl > prev + 1) add('S5', 'minor', 'Saut de niveau de titre', `h${prev} → h${lvl} (niveau intermédiaire sauté)`, lineOf(html, m.index))
+    prev = lvl
+  }
+}
+
+// ============================================================ S6 — images (alt + dimensions)
+{
+  for (const tag of allTags(/<img\b[^>]*>/gi)) {
+    if (!/\balt\s*=/i.test(tag)) add('S6', 'major', 'Image sans alt', '<img> sans attribut alt (accessibilité)', firstLine(html, tag))
+    if (!/\bwidth\s*=/i.test(tag) || !/\bheight\s*=/i.test(tag)) add('S6', 'minor', 'Image sans width/height', '<img> sans width+height (évite le CLS)', firstLine(html, tag))
+  }
+}
+
+// ============================================================ S7 — ressources tierces (CDN)
+{
+  for (const tag of allTags(/<(?:link|script|img)\b[^>]*>/gi)) {
+    if (/\bsrcset\s*=/i.test(tag) && !/\b(?:href|src)\s*=/i.test(tag)) continue
+    const url = attr(tag, 'href') || attr(tag, 'src')
+    if (!url || !/^https?:\/\//i.test(url)) continue
+    const host = externalHost(url)
+    if (host && !ALLOW_EXTERNAL_HOSTS.has(host) && !host.endsWith('github.io')) {
+      add('S7', 'major', 'Ressource tierce (CDN)', `${host} chargé en externe — héberger en local (hors allowlist)`, firstLine(html, url))
+    }
+  }
+  for (const s of FORBIDDEN_SIGNALS) {
+    if (!s.signal.startsWith('/api/') && allContent.includes(s.signal)) {
+      add('S7', 'major', 'CDN tiers interdit', `« ${s.signal} » — ${s.why}`, firstLine(html, s.signal))
+    }
+  }
+}
+
+// ============================================================ S8 — assets locaux présents
+{
+  for (const tag of allTags(/<(?:link|script|img)\b[^>]*>/gi)) {
+    const url = attr(tag, 'href') || attr(tag, 'src')
+    if (!url) continue
+    if (/^(?:[a-z]+:)?\/\//i.test(url) || url.startsWith('data:') || url.startsWith('#')) continue
+    const clean = url.split(/[?#]/)[0]
+    const p = join(ROOT, clean.replace(/^\//, ''))
+    if (!existsSync(p)) add('S8', 'blocker', 'Asset local introuvable', `${clean} référencé mais absent du disque (404)`, firstLine(html, url))
+  }
+}
+
+// ============================================ S8' — endpoint interdit (/api/latestApk)
+{
+  const sig = '/api/latestApk'
+  if (allContent.includes(sig)) add("S8'", 'blocker', 'Endpoint interdit réintroduit', `${sig} renvoie du JSON, pas l'APK — utiliser /api/download`, firstLine(html, sig))
+}
+
+// ============================================ S9 — icône incluse dans le sous-ensemble FA
+{
+  if (existsSync(FA_CSS)) {
+    const css = readFileSync(FA_CSS, 'utf-8')
+    const defined = new Set()
+    const dre = /\.fa-([a-z0-9-]+):before/g
+    let dm
+    while ((dm = dre.exec(css))) defined.add(dm[1])
+    const FA_UTIL = new Set(['fa-solid', 'fa-brands', 'fa-regular', 'fa-classic', 'fa-sharp', 'fa-fw', 'fa-ul', 'fa-li', 'fa-border', 'fa-pull-left', 'fa-pull-right', 'fa-beat', 'fa-bounce', 'fa-fade', 'fa-flip', 'fa-shake', 'fa-spin', 'fa-pulse', 'fa-spin-pulse', 'fa-beat-fade', 'fa-spin-reverse', 'fa-stack', 'fa-stack-1x', 'fa-stack-2x', 'fa-inverse', 'fa-rotate-by', 'fa-sr-only', 'fa-sr-only-focusable', 'fa-2xs', 'fa-xs', 'fa-sm', 'fa-lg', 'fa-xl', 'fa-2xl'])
+    const isUtil = (c) => FA_UTIL.has(c) || /^fa-\d+x$/.test(c) || /^fa-rotate-\d+$/.test(c) || /^fa-flip-(?:horizontal|vertical|both)$/.test(c)
+    const used = new Set()
+    const cre = /class(?:Name)?\s*=\s*["']([^"']*)["']/gi
+    let cm
+    while ((cm = cre.exec(allContent))) {
+      for (const c of cm[1].split(/\s+/)) {
+        if (/^fa-[a-z0-9-]+$/.test(c) && !isUtil(c)) used.add(c.slice(3))
+      }
+    }
+    for (const name of used) {
+      if (!defined.has(name)) add('S9', 'blocker', 'Icône absente du sous-ensemble', `fa-${name} utilisée mais absente de fa-subset.css → icône cassée`, firstLine(allContent, `fa-${name}`))
+    }
+  }
+}
+
 // ================================================= S9b — prefixe Font Awesome correct (fas/fab)
 {
   const re = /<(i|span)[^>]*class\s*=\s*"([^"]*)"/gi

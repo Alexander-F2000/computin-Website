@@ -12,7 +12,7 @@
 
 | Composant | Fichier | Rôle |
 |---|---|---|
-| Scanner déterministe | `tools/site-hunt.mjs` | Règles S1–S14 (aucune dépendance) |
+| Scanner déterministe | `tools/site-hunt.mjs` | Règles S1–S17 + S9b/S9c (aucune dépendance) |
 | Wrapper | `site-hunt.sh` | modes `static` / `--fix` / `--links` / `--full` |
 | Barrière de release | `verify-release.sh` | **G1/G2** : éléments critiques présents EN LIGNE |
 | CI | `.github/workflows/site-hunt.yml` | lance la chasse à chaque push |
@@ -32,6 +32,8 @@
 | S8 | blocker | asset local référencé mais absent du disque (404) |
 | S8' | blocker | `/api/latestApk` réintroduit (renvoie du JSON, pas l'APK) |
 | S9 | blocker | icône utilisée absente de `fa-subset.css` |
+| S9b | major | préfixe Font Awesome incorrect (`fas` alors que `fab`) — **auto-fix** |
+| S9c | blocker | police `@font-face` introuvable (chemin cassé → « tofu ») |
 | S10 | major | emoji dans le HTML (règle CLAUDE.md : icônes FA uniquement) |
 | S11 | minor | `<link rel="canonical">` absent |
 | S12 | major | `robots.txt` / `sitemap.xml` absents |
@@ -110,3 +112,17 @@
 - **verify-release.sh** : récupère le `fa-subset.css` EN LIGNE et vérifie que **chaque police `@font-face` répond en HTTP 200** en ligne (G1 : preuve live, pas seulement locale).
 
 **Preuve** : en ligne, `assets/vendor/webfonts/fa-solid-900.woff2` = **404** (avant) vs `assets/vendor/fontawesome/webfonts/fa-solid-900.woff2` = **200** ; après correctif, toutes les polices répondent 200 et `site-hunt` = `0 blocker`.
+
+## SITE-7 — La doc annonçait des règles non implémentées ; et faux « anciens émojis » = cache client — 2026-10-11
+
+**Symptôme 1 (code)** : la table ci-dessus listait S1–S17, mais `tools/site-hunt.mjs` n'implémentait en réalité que **10** règles (S9b, S9c, S10–S17). Les règles **S1–S9 étaient absentes** → le site n'était pas réellement contrôlé pour JSON-LD, meta description, `<title>`, `<h1>`, hiérarchie des titres, `alt`/dimensions des images, CDN tiers, assets locaux, icône⊆sous-ensemble.
+
+**Cause racine 1** : la doc a été écrite comme **spec complet**, le code construit **par étapes** → écart doc↔code (violation **G3**). Indice confirmé : `FORBIDDEN_SIGNALS` (l.26) était **défini mais jamais branché** (code mort).
+
+**Correctif 1** : implémentation de **S1–S9 + S8'** dans `tools/site-hunt.mjs`.
+**Preuve** : scan du site réel → `0 blocker · 0 major · 0 minor · 1 nit (S17)` ; **test négatif** sur copie mutée → `4 blocker · 5 major` (S1,S4,S6,S7,S8,S8',S9,S10), `exit 1` → **règles opérantes**.
+
+**Leçon G5** : une règle listée dans la doc **doit** exister en code exécutable ; sinon la doc ment (G3).
+
+**Symptôme 2 (cache)** : « ça affiche encore les anciens émojis » → en réalité **cache du navigateur/PC** (GitHub Pages sert `Cache-Control: max-age=600`) ; le site déployé était correct (**confirmé sur mobile**, autre réseau ; live ≡ local : 84 icônes FA, 0 émoji). Les émojis n'ont jamais existé que dans l'ancien `index.html` (supprimés au commit `01f11c0`).
+**Mitigation possible** : versioning des assets (`?v=`) pour éviter qu'un HTML en cache serve des CSS/JS périmés.
