@@ -152,6 +152,38 @@
     }
 
     /* ============================================================
+       ANALYTICS : badge compteur de téléchargements + event Plausible
+    ============================================================ */
+    function initDownloadStats() {
+        var badge = document.getElementById('dl-count');
+        var dlBtn = document.getElementById('dl-btn');
+
+        // Badge public depuis le backend (CORS *). Silencieux en cas d'erreur :
+        // le badge se masque, la page n'est jamais cassée.
+        if (badge) {
+            fetch('https://com-putin-backend.vercel.app/api/stats')
+                .then(function (r) { return r.ok ? r.json() : Promise.reject(new Error('stats ' + r.status)); })
+                .then(function (stats) {
+                    var n = Number(stats.downloads);
+                    if (isFinite(n)) { badge.textContent = formatNumber(n); }
+                })
+                .catch(function () {
+                    var wrap = badge.closest('.dl-stats');
+                    if (wrap) { wrap.style.display = 'none'; }
+                });
+        }
+
+        // Goal Plausible 'Download' au clic (navigation native — event synchrone).
+        // Vérification au moment du clic : le script Plausible peut ne pas être
+        // encore chargé (defer, bloqueurs) ; si absent, rien ne se passe.
+        if (dlBtn) {
+            dlBtn.addEventListener('click', function () {
+                if (window.plausible) { window.plausible('Download'); }
+            });
+        }
+    }
+
+    /* ============================================================
        UI : accordéon FAQ, menu mobile, header scroll
     ============================================================ */
     function initUI() {
@@ -212,6 +244,9 @@
 
         /* --- Lisser l'ancre de téléchargement (lien APK réel) --- */
         // Rien à faire : les liens internes utilisent scroll-behavior CSS.
+
+        /* --- Analytics : badge compteur + event téléchargement --- */
+        initDownloadStats();
     }
 
     initUI();
