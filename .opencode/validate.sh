@@ -17,11 +17,17 @@
 # hors du chemin bloquant — c'est un smoke post-déploiement. Il s'exécute via
 # `bash site-hunt.sh --full` ou via la CI (workflow site-hunt.yml).
 #
-# Usage : bash validate.sh
+# Usage : bash .opencode/validate.sh
 # Exit  : 0 PRET / 1 CONDITIONS / 2 BLOQUE
+#
+# NOTE — pourquoi ce fichier est sous `.opencode/` et non à la racine :
+# GitHub Pages sert TOUT le repo (README.md, verify-release.sh, site-hunt.sh
+# sont téléchargeables), SAUF les fichiers/dossiers commençant par un point
+# (filtrés par Jekyll : .github/, .gitattributes → 404). Le placer ici le rend
+# NON servi (404) tout en le versionnant, pour que la barrière voyage avec le repo.
 # =============================================================================
 set -uo pipefail
-cd "$(dirname "$0")" || exit 2
+cd "$(dirname "$0")/.." || exit 2
 
 # ---- 1) Arbre git propre : ce qui est poussé doit être ce qui a été vérifié ----
 if command -v git >/dev/null 2>&1 && git rev-parse --git-dir >/dev/null 2>&1; then

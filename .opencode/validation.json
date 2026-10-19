@@ -2,7 +2,7 @@
   "$schema": "~/.config/opencode/bug-knowledge/schemas/validation.schema.json",
   "project": "computin-website",
   "stacks": ["web", "html", "css", "javascript"],
-  "entrypoint": { "command": "bash validate.sh", "timeoutMs": 180000 },
+  "entrypoint": { "command": "bash .opencode/validate.sh", "timeoutMs": 180000 },
   "fast": [
     {
       "id": "SEC-1",
