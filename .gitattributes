@@ -1,0 +1,5 @@
+# Forcer LF sur les scripts shell, quel que soit core.autocrlf (souvent =true
+# sur Windows depuis le gitconfig système). Sans cette règle, un clone donne des
+# scripts en CRLF et `bash *.sh` échoue avec `$'\r': command not found`
+# (fatal en CI ubuntu-latest comme pour le workflow site-hunt.yml).
+*.sh text eol=lf

@@ -1,0 +1,40 @@
+{
+  "$schema": "~/.config/opencode/bug-knowledge/schemas/validation.schema.json",
+  "project": "computin-website",
+  "stacks": ["web", "html", "css", "javascript"],
+  "entrypoint": { "command": "bash validate.sh", "timeoutMs": 180000 },
+  "fast": [
+    {
+      "id": "SEC-1",
+      "type": "grep-absent",
+      "severity": "blocker",
+      "wall": "securite",
+      "files": "index.html",
+      "pattern": "cdn.jsdelivr.net"
+    },
+    {
+      "id": "DEP-1",
+      "type": "file-exists",
+      "severity": "blocker",
+      "wall": "deploiement",
+      "path": "index.html"
+    },
+    {
+      "id": "DEP-2",
+      "type": "file-exists",
+      "severity": "blocker",
+      "wall": "deploiement",
+      "path": "verify-release.sh"
+    },
+    {
+      "id": "EDGE-1",
+      "type": "file-exists",
+      "severity": "blocker",
+      "wall": "edge",
+      "path": "tools/site-hunt.mjs"
+    }
+  ],
+  "release": { "mode": "full", "on": ["push", "deploy"] },
+  "verdict": { "0": "PRET", "1": "CONDITIONS", "2": "BLOQUE" },
+  "reviewedAt": "2026-10-19"
+}
